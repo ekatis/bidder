@@ -12,11 +12,11 @@ import java.util.concurrent.ConcurrentMap;
 @Component
 public class CampaignBids {
 
-    private ConcurrentMap<String, Integer> bidsPerCampaign = new ConcurrentHashMap();
+    private ConcurrentMap<String, Integer> bidsPerCampaign = new ConcurrentHashMap<>();
 
     @Scheduled(fixedRateString = "${pacing.limit.in.milliseconds}")
     public void resetBidsPerCampaign() {
-        bidsPerCampaign = new ConcurrentHashMap();
+        bidsPerCampaign = new ConcurrentHashMap<>();
     }
 
     public Integer getBids(String campaignId) {
