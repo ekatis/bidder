@@ -23,6 +23,8 @@ import static org.mockito.Matchers.anyString;
  */
 public class CampaignPickerTest {
 
+    private static final Integer PACING_LIMIT_BIDS = 1;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -37,7 +39,7 @@ public class CampaignPickerTest {
     @Before
     public void setup() throws IOException {
         MockitoAnnotations.initMocks(this);
-        this.campaignPicker = new CampaignPicker(1, this.remoteCampaignRepository,
+        this.campaignPicker = new CampaignPicker(PACING_LIMIT_BIDS, this.remoteCampaignRepository,
                 this.campaignBids);
         given(this.remoteCampaignRepository.findAll()).willReturn(getCampaignsAsList());
     }
@@ -64,7 +66,7 @@ public class CampaignPickerTest {
     }
 
     @Test
-    public void pickForWhenCountryIsUsaAndBidsGreaterThanZeroShouldFilterOutHighest() {
+    public void pickForWhenCountryIsUsaAndBidsGreaterThanZeroShouldFilterOut() {
         given(this.campaignBids.getBids("5a3dce46")).willReturn(1);
         Campaign actual = this.campaignPicker.pickFor("USA");
         assertThat(actual.getPrice()).isEqualTo(0.39);
